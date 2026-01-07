@@ -9,10 +9,10 @@ let db;
 
 try {
   db = new Database(dbPath, { verbose: console.log });
-  console.log('✅ Database verbinding succesvol!');
-  console.log(`📁 Database locatie: ${dbPath}`);
+  console.log('Database verbinding succesvol!');
+  console.log(`Database locatie: ${dbPath}`);
 } catch (error) {
-  console.error('❌ Database verbinding mislukt:', error.message);
+  console.error('Database verbinding mislukt:', error.message);
   process.exit(1);
 }
 
