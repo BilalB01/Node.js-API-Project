@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receptenweb API Documentatie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #00844A;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: #00844A;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #00844A;
+            border-bottom: 3px solid #00844A;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .endpoint {
+            background: #f8f9fa;
+            border-left: 4px solid #00844A;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .endpoint h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .method {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 0.9em;
+        }
+
+        .method.get {
+            background: #28a745;
+            color: white;
+        }
+
+        .method.post {
+            background: #007bff;
+            color: white;
+        }
+
+        .method.put {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .method.delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .url {
+            font-family: 'Courier New', monospace;
+            background: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+
+        .description {
+            margin: 15px 0;
+            color: #666;
+        }
+
+        .params,
+        .example {
+            margin-top: 15px;
+        }
+
+        .params h4,
+        .example h4 {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+        }
+
+        .info-box {
+            background: #e7f9f0;
+            border-left: 4px solid #00844A;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .info-box strong {
+            color: #00844A;
+        }
+
+        footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Receptenweb API</h1>
+            <p>RESTful API Documentatie - Node.js & Express</p>
+        </header>
+
+        <div class="content">
+            <div class="info-box">
+                <strong>Base URL:</strong> <code>http://localhost:3000/api</code><br>
+                <strong>Versie:</strong> 1.0.0<br>
+                <strong>Response Format:</strong> JSON
+            </div>
+
+            <!-- NEWS ENDPOINTS -->
+            <div class="section">
+                <h2>News Endpoints</h2>
+
+                <div class="endpoint">
+                    <h3><span class="method get">GET</span> <span class="url">/api/news</span></h3>
+                    <p class="description">Haal alle news items op met paginatie</p>
+
+                    <div class="params">
+                        <h4>Query Parameters:</h4>
+                        <ul>
+                            <li><code>limit</code> (optioneel) - Aantal items per pagina (default: 10)</li>
+                            <li><code>offset</code> (optioneel) - Aantal items om over te slaan (default: 0)</li>
+                        </ul>
+                    </div>
+
+                    <div class="example">
+                        <h4>Voorbeeld Request:</h4>
+                        <pre><code>GET /api/news?limit=5&offset=0</code></pre>
+
+                        <h4>Voorbeeld Response:</h4>
+                        <pre><code>{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "title": "Nieuwe recepten toegevoegd",
+      "content": "We hebben 10 nieuwe recepten...",
+      "author": "Admin",
+      "created_at": "2024-01-07 12:00:00",
+      "updated_at": "2024-01-07 12:00:00"
+    }
+  ],
+  "pagination": {
+    "total": 25,
+    "limit": 5,
+    "offset": 0,
+    "hasMore": true
+  }
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h3><span class="method get">GET</span> <span class="url">/api/news/:id</span></h3>
+                    <p class="description">Haal één specifiek news item op</p>
+
+                    <div class="example">
+                        <h4>Voorbeeld Request:</h4>
+                        <pre><code>GET /api/news/1</code></pre>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h3><span class="method get">GET</span> <span class="url">/api/news/search</span></h3>
+                    <p class="description">Zoek news items op basis van titel of content</p>
+
+                    <div class="params">
+                        <h4>Query Parameters:</h4>
+                        <ul>
+                            <li><code>q</code> (verplicht) - Zoekterm</li>
+                            <li><code>limit</code> (optioneel) - Aantal resultaten (default: 10)</li>
+                            <li><code>offset</code> (optioneel) - Offset voor paginatie (default: 0)</li>
+                        </ul>
+                    </div>
+
+                    <div class="example">
+                        <h4>Voorbeeld Request:</h4>
+                        <pre><code>GET /api/news/search?q=recept&limit=5</code></pre>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h3><span class="method post">POST</span> <span class="url">/api/news</span></h3>
+                    <p class="description">Maak een nieuw news item aan</p>
+
+                    <div class="params">
+                        <h4>Request Body:</h4>
+                        <pre><code>{
+  "title": "Titel van het nieuws",
+  "content": "Inhoud van het nieuws",
+  "author": "Auteur naam" (optioneel)
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h3><span class="method put">PUT</span> <span class="url">/api/news/:id</span></h3>
+                    <p class="description">Update een bestaand news item</p>
+
+                    <div class="params">
+                        <h4>Request Body:</h4>
+                        <pre><code>{
+  "title": "Nieuwe titel",
+  "content": "Nieuwe inhoud",
+  "author": "Nieuwe auteur"
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h3><span class="method delete">DELETE</span> <span class="url">/api/news/:id</span></h3>
+                    <p class="description">Verwijder een news item</p>
+
+                    <div class="example">
+                        <h4>Voorbeeld Request:</h4>
+                        <pre><code>DELETE /api/news/1</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POSTS ENDPOINTS -->
+            <div class="section">
+                <h2>Posts Endpoints</h2>
+
+                <div class="endpoint">
+                    <h3><span class="method get">GET</span> <span class="url">/api/posts</span></h3>
+                    <p class="description">Haal alle posts op met paginatie</p>
+
+                    <div class="params">
+                        <h4>Query Parameters:</h4>
+                        <ul>
+                            <li><code>limit</code> (optioneel) - Aantal items per pagina (default: 10)</li>
+                            <li><code>offset</code> (optioneel) - Aantal items om over te slaan (default: 0)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h3><span class="method get">GET</span> <span class="url">/api/posts/:id</span></h3>
+                    <p class="description">Haal één specifieke post op</p>
+                </div>
+
+                <div class="endpoint">
+                    <h3><span class="method get">GET</span> <span class="url">/api/posts/search</span></h3>
+                    <p class="description">Zoek posts op basis van content</p>
+
+                    <div class="params">
+                        <h4>Query Parameters:</h4>
+                        <ul>
+                            <li><code>q</code> (verplicht) - Zoekterm</li>
+                            <li><code>limit</code> (optioneel) - Aantal resultaten (default: 10)</li>
+                            <li><code>offset</code> (optioneel) - Offset voor paginatie (default: 0)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h3><span class="method post">POST</span> <span class="url">/api/posts</span></h3>
+                    <p class="description">Maak een nieuwe post aan</p>
+
+                    <div class="params">
+                        <h4>Request Body:</h4>
+                        <pre><code>{
+  "content": "Inhoud van de post",
+  "user_id": 1 (optioneel)
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h3><span class="method put">PUT</span> <span class="url">/api/posts/:id</span></h3>
+                    <p class="description">Update een bestaande post</p>
+
+                    <div class="params">
+                        <h4>Request Body:</h4>
+                        <pre><code>{
+  "content": "Nieuwe inhoud"
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="endpoint">
+                    <h3><span class="method delete">DELETE</span> <span class="url">/api/posts/:id</span></h3>
+                    <p class="description">Verwijder een post</p>
+                </div>
+            </div>
+
+            <!-- ERROR RESPONSES -->
+            <div class="section">
+                <h2>Error Responses</h2>
+
+                <div class="endpoint">
+                    <h3>Error Format</h3>
+                    <p class="description">Alle errors worden geretourneerd in het volgende formaat:</p>
+
+                    <div class="example">
+                        <pre><code>{
+  "success": false,
+  "error": "Foutmelding",
+  "message": "Gedetailleerde foutbeschrijving"
+}</code></pre>
+                    </div>
+
+                    <div class="params">
+                        <h4>HTTP Status Codes:</h4>
+                        <ul>
+                            <li><code>200</code> - OK</li>
+                            <li><code>201</code> - Created</li>
+                            <li><code>400</code> - Bad Request (validatie fout)</li>
+                            <li><code>404</code> - Not Found</li>
+                            <li><code>500</code> - Internal Server Error</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Receptenweb API</strong> - Gemaakt met Node.js & Express</p>
+            <p>Versie 1.0.0 | 2024</p>
+        </footer>
+    </div>
+</body>
+
+</html>
