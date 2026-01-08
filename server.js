@@ -29,11 +29,11 @@ app.get('/api', (req, res) => {
     });
 });
 
-// Routes (komen later)
-// const newsRoutes = require('./src/routes/newsRoutes');
-// const postsRoutes = require('./src/routes/postsRoutes');
-// app.use('/api/news', newsRoutes);
-// app.use('/api/posts', postsRoutes);
+// Routes
+const newsRoutes = require('./src/routes/newsRoutes');
+const postsRoutes = require('./src/routes/postsRoutes');
+app.use('/api/news', newsRoutes);
+app.use('/api/posts', postsRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -58,7 +58,7 @@ app.use((req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`🚀 Server draait op http://localhost:${PORT}`);
-    console.log(`📚 API documentatie: http://localhost:${PORT}`);
-    console.log(`🔧 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`Server draait op http://localhost:${PORT}`);
+    console.log(`API documentatie: http://localhost:${PORT}`);
+    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
 });
