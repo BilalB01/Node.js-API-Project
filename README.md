@@ -1,88 +1,149 @@
-# Receptenweb Node.js API
+# Receptenweb API (Node.js + Express)
 
-Een RESTful API gebouwd met Node.js en Express voor het Receptenweb project.
+Dit project is gemaakt voor het vak Backend Web (EHB). Het is een database-driven REST API gebouwd met Node.js 20+, Express en better-sqlite3 (SQLite).
 
-## 🚀 Installatie
+## Features (opdracht requirements)
+
+- **Database-driven API** (SQLite via better-sqlite3)
+- **Twee CRUD interfaces**
+  - News (nieuwsberichten)
+  - Posts (berichten)
+- **Basisvalidatie**
+  - Verplichte velden mogen niet leeg zijn
+  - Numerieke velden moeten getallen zijn
+  - Titel moet minimaal 5 karakters zijn
+  - Content moet minimaal 10 karakters zijn
+- **Geavanceerde validatie** (extra feature)
+  - Limit moet tussen 1 en 100 zijn
+  - Offset moet 0 of hoger zijn
+  - Zoekterm moet minimaal 2 karakters zijn
+- **Paginatie** (limit + offset)
+  - `GET /api/news?limit=10&offset=0`
+  - `GET /api/posts?limit=10&offset=0`
+- **Zoekfunctie**
+  - `GET /api/news/search?q=recept` (zoekt in title en content)
+  - `GET /api/posts/search?q=test` (zoekt in content)
+- **HTML documentatie pagina op root**
+  - `GET /` (served from public/index.html)
+
+## Endpoints
+
+### Documentatie (root)
+- `GET /`
+
+### API Info
+- `GET /api`
+
+### News (CRUD)
+| Methode | Endpoint | Beschrijving |
+|---------|----------|--------------|
+| GET | /api/news | Alle news items ophalen |
+| GET | /api/news/:id | Één news item ophalen |
+| GET | /api/news/search?q=... | Zoeken in news |
+| POST | /api/news | Nieuw news item aanmaken |
+| PUT | /api/news/:id | News item updaten |
+| DELETE | /api/news/:id | News item verwijderen |
+
+Voorbeeld body (nieuw news item):
+```json
+{
+  "title": "Nieuwe Recepten",
+  "content": "We hebben vandaag 5 nieuwe recepten toegevoegd."
+}
+```
+
+### Posts (CRUD)
+| Methode | Endpoint | Beschrijving |
+|---------|----------|--------------|
+| GET | /api/posts | Alle posts ophalen |
+| GET | /api/posts/:id | Één post ophalen |
+| GET | /api/posts/search?q=... | Zoeken in posts |
+| POST | /api/posts | Nieuwe post aanmaken |
+| PUT | /api/posts/:id | Post updaten |
+| DELETE | /api/posts/:id | Post verwijderen |
+
+Voorbeeld body (nieuwe post):
+```json
+{
+  "content": "Dit is een nieuwe post met voldoende tekst."
+}
+```
+
+## Installatie
 
 ### Vereisten
-- Node.js (versie 20 of hoger)
-- NPM
-- SQLite database (van het Laravel project)
+- Node.js 20+
+- npm
+- git
 
-### Stappen
-
-1. **Clone de repository**
+### Stap 1: Clone de repository
 ```bash
-git clone <jouw-repository-url>
+git clone https://github.com/BilalB01/Node.js-API-Project.git
 cd Node.js-API-Project
 ```
 
-2. **Installeer dependencies**
+### Stap 2: Installeer dependencies
 ```bash
 npm install
 ```
 
-3. **Configureer environment variabelen**
-```bash
-# Kopieer .env.example naar .env
-cp .env.example .env
+### Stap 3: Maak .env bestand
+Kopieer het voorbeeld bestand:
 
-# Pas de database path aan in .env naar jouw Laravel database locatie
+**Windows (PowerShell):**
+```powershell
+copy .env.example .env
 ```
 
-4. **Start de development server**
+**macOS / Linux:**
+```bash
+cp .env.example .env
+```
+
+### Stap 4: Pas .env aan
+Open het `.env` bestand en zet het juiste database pad:
+```
+PORT=3000
+NODE_ENV=development
+DB_PATH=./database.sqlite
+CORS_ORIGIN=*
+```
+
+**Let op:** Als je de Laravel database wilt gebruiken, pas `DB_PATH` aan naar het juiste pad.
+
+### Stap 5: Start de server
 ```bash
 npm run dev
 ```
 
-De API draait nu op `http://localhost:3000`
+### Stap 6: Open in browser
+- http://localhost:3000/ (documentatie)
+- http://localhost:3000/api/news (news items)
+- http://localhost:3000/api/posts (posts)
 
-## 📚 API Documentatie
+## Omgevingsvariabelen
 
-Bezoek `http://localhost:3000` voor de volledige API documentatie.
+| Variabele | Beschrijving | Voorbeeld |
+|-----------|--------------|-----------|
+| PORT | Poort waarop de server draait | 3000 |
+| NODE_ENV | Development of production | development |
+| DB_PATH | Pad naar SQLite database | ./database.sqlite |
+| CORS_ORIGIN | Toegestane origins | * |
 
-## 🛠️ Beschikbare Scripts
+## Git
 
-- `npm start` - Start de productie server
-- `npm run dev` - Start de development server met nodemon (auto-reload)
+- `node_modules` staat in `.gitignore`
+- Commits zijn gemaakt in logische stappen met duidelijke berichten
 
-## 📁 Project Structuur
+## Bronvermeldingen
 
-```
-Node.js-API-Project/
-├── src/
-│   ├── config/          # Database configuratie
-│   ├── controllers/     # Business logic
-│   ├── models/          # Database models
-│   ├── routes/          # API routes
-│   ├── middleware/      # Custom middleware
-│   └── utils/           # Helper functies
-├── public/              # Statische bestanden (API docs)
-├── .env                 # Environment variabelen (niet in git)
-├── .env.example         # Environment variabelen template
-├── server.js            # Entry point
-└── package.json         # Dependencies
-```
-
-## 🔧 Technologieën
-
-- **Node.js** - Runtime environment
-- **Express** - Web framework
-- **better-sqlite3** - SQLite database driver
-- **express-validator** - Validatie middleware
-- **dotenv** - Environment variabelen
-- **cors** - Cross-Origin Resource Sharing
-
-## 📝 Bronvermeldingen
-
-- Express documentatie: https://expressjs.com/
-- better-sqlite3 documentatie: https://github.com/WiseLibs/better-sqlite3
-- express-validator documentatie: https://express-validator.github.io/
-
-## 👤 Auteur
-
-Bilal
-
-## 📄 Licentie
-
-ISC
+| Bron | URL |
+|------|-----|
+| Express.js documentatie | https://expressjs.com/ |
+| better-sqlite3 documentatie | https://github.com/WiseLibs/better-sqlite3 |
+| express-validator documentatie | https://express-validator.github.io/ |
+| dotenv documentatie | https://www.npmjs.com/package/dotenv |
+| CORS npm package | https://www.npmjs.com/package/cors |
+| nodemon documentatie | https://nodemon.io/ |
+| MDN Web Docs (JavaScript) | https://developer.mozilla.org/en-US/docs/Web/JavaScript |
+| Node.js documentatie | https://nodejs.org/docs/latest/api/ |
