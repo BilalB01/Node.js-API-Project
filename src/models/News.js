@@ -23,7 +23,7 @@ class News {
         return dbHelpers.get(sql, [id]);
     }
 
-    // Zoek news items op basis van titel
+    // Zoek news items op basis van titel en content
     static search(searchTerm, limit = 10, offset = 0) {
         const sql = `
       SELECT * FROM news 
@@ -38,13 +38,12 @@ class News {
     // Maak een nieuw news item aan
     static create(data) {
         const sql = `
-      INSERT INTO news (title, content, author, created_at, updated_at)
-      VALUES (?, ?, ?, datetime('now'), datetime('now'))
+      INSERT INTO news (title, content, published_at, created_at, updated_at)
+      VALUES (?, ?, datetime('now'), datetime('now'), datetime('now'))
     `;
         const result = dbHelpers.run(sql, [
             data.title,
-            data.content,
-            data.author || 'Admin'
+            data.content
         ]);
 
         return this.getById(result.lastInsertRowid);
@@ -54,13 +53,12 @@ class News {
     static update(id, data) {
         const sql = `
       UPDATE news 
-      SET title = ?, content = ?, author = ?, updated_at = datetime('now')
+      SET title = ?, content = ?, updated_at = datetime('now')
       WHERE id = ?
     `;
         dbHelpers.run(sql, [
             data.title,
             data.content,
-            data.author,
             id
         ]);
 
