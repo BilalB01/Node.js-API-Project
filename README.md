@@ -140,7 +140,6 @@ npm run dev
 | Bron | URL |
 |------|-----|
 | Express.js documentatie | https://expressjs.com/ |
-| better-sqlite3 documentatie | https://github.com/WiseLibs/better-sqlite3 |
 | express-validator documentatie | https://express-validator.github.io/ |
 | dotenv documentatie | https://www.npmjs.com/package/dotenv |
 | CORS npm package | https://www.npmjs.com/package/cors |
