@@ -140,7 +140,6 @@ npm run dev
 | Bron | URL |
 |------|-----|
 | Express.js documentatie | https://expressjs.com/ |
-| express-validator documentatie | https://express-validator.github.io/ |
 | dotenv documentatie | https://www.npmjs.com/package/dotenv |
 | CORS npm package | https://www.npmjs.com/package/cors |
 | nodemon documentatie | https://nodemon.io/ |
